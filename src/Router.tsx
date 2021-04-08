@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import App from "./App";
+import Moody from "./Moody";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/">
-          <App />
+          <Moody />
         </Route>
       </Switch>
     </BrowserRouter>
