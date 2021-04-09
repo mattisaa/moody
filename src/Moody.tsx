@@ -1,8 +1,9 @@
 import React from "react";
-import Text, { TextTypes } from "./components/Text";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { colors } from "./colors";
-import { Button } from "react-bootstrap";
+import { PrimaryButton } from "./components/Buttons";
+import Text, { TextTypes } from "./components/Text";
+import { urls } from "./resources/urls";
 
 const Container = styled.div`
   background-color: ${colors.primaryBackground};
@@ -13,7 +14,33 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const buttonStyle = css`
+  padding: 0px;
+  background: none;
+  box-sizing: border-box;
+  border: none;
+  &:active {
+    opacity: 0.5;
+  }
+  &:focus {
+    outline: 0;
+  }
+  &:disabled {
+    opacity: 1;
+  }
+`;
+const scope = "user-read-private user-read-currently-playing";
+const encodedScopes = encodeURIComponent(scope);
+
 export default function Moody() {
+  function handlePress() {
+    window.location.href = `${urls.spotifyAuth}?client_id=${
+      process.env.REACT_APP_CLIENT_ID
+    }&scope=${encodedScopes}&redirect_uri=${encodeURIComponent(
+      "http://localhost:3000/"
+    )}&response_type=token&show_dialog=true`;
+  }
+
   return (
     <Container>
       <Text
@@ -28,17 +55,9 @@ export default function Moody() {
         bold
         style={{ marginBottom: 40, textAlign: "center" }}
       />
-      <Button
-        style={{
-          backgroundColor: colors.primarySpotifyBackground,
-          border: "none",
-          color: colors.black,
-          padding: 20,
-          borderRadius: 12
-        }}
-      >
+      <PrimaryButton onClick={handlePress}>
         <Text text="Connect with Spotify" type={TextTypes.normal} bold />
-      </Button>
+      </PrimaryButton>
     </Container>
   );
 }
