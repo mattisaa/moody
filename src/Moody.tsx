@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import Spotify from "./assets/fonts/svg/spotify";
 import { colors } from "./colors";
 import { PrimaryButton } from "./components/Buttons";
 import Text, { TextTypes } from "./components/Text";
@@ -56,7 +57,15 @@ export default function Moody() {
         style={{ marginBottom: 40, textAlign: "center" }}
       />
       <PrimaryButton onClick={handlePress}>
-        <Text text="Connect with Spotify" type={TextTypes.normal} bold />
+        <div style={{ display: "flex" }}>
+          <Spotify />
+          <Text
+            text="Connect with Spotify"
+            type={TextTypes.normal}
+            bold
+            style={{ marginLeft: 10 }}
+          />
+        </div>
       </PrimaryButton>
     </Container>
   );
