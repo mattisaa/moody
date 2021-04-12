@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import { fonts } from "../assets/fonts/fonts";
 
@@ -36,17 +37,24 @@ const TextContainer = styled.p`
 `;
 
 interface Props {
-  text: string;
+  text?: string;
   bold?: boolean;
-  type: TextTypes;
+  type?: TextTypes;
   style?: React.CSSProperties;
 }
 
-export default function Text({ text, bold, type, style }: Props) {
-  const TextStyle = textTypes[type];
+export default function Text({
+  text,
+  bold,
+  type,
+  style,
+  children
+}: PropsWithChildren<Props>) {
+  const TextStyle = textTypes[type || TextTypes.normal];
   return (
     <TextStyle style={{ fontWeight: bold ? 700 : undefined, ...style }}>
       {text}
+      {children}
     </TextStyle>
   );
 }
