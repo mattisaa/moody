@@ -32,6 +32,7 @@
 html,
 #root {
   height: 100vh;
+  background-color: #f6edd9;
 }
 
 body {

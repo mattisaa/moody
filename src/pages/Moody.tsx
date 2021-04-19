@@ -4,8 +4,11 @@ import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../colors";
+import { Loader } from "../components/Loader";
 import Text from "../components/Text";
+import { AudioFeaturesEntity, RecentlyPlayedEntity } from "../types/types";
 import { getMood, getTrackIdsFromRecentlyPlayedResponse } from "../utils/utils";
+import { VisualizeSongs } from "./VisualizeSongs";
 
 const Container = styled.div`
   background-color: ${colors.primaryBackground};
@@ -16,6 +19,18 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const CenterAll = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`;
+
+const Image = styled.img`
+  object-fit: contain;
+`;
+
 export default function Moody(): ReactElement {
   const location = useLocation();
 
@@ -24,10 +39,10 @@ export default function Moody(): ReactElement {
   const access_token = params["access_token"];
 
   const {
-    isLoading,
+    isLoading: isRecentlyPlayedLoading,
     error: recentlyPlayedError,
     data: recentPlayedTracks
-  } = useQuery("recentPlayed", () => {
+  } = useQuery<RecentlyPlayedEntity>("recentPlayed", () => {
     return fetch("https://api.spotify.com/v1/me/player/recently-played/", {
       method: "GET",
       headers: {
@@ -40,7 +55,11 @@ export default function Moody(): ReactElement {
   if (recentPlayedTracks) {
     ids = getTrackIdsFromRecentlyPlayedResponse(recentPlayedTracks);
   }
-  const { error: tracksFeaturesError, data: tracksFeatures } = useQuery(
+  const {
+    error: tracksFeaturesError,
+    data: tracksFeatures,
+    isLoading: isTracksFeaturesLoading
+  } = useQuery<AudioFeaturesEntity>(
     "tracks",
     () => {
       return fetch(`https://api.spotify.com/v1/audio-features?ids=${ids}`, {
@@ -52,15 +71,28 @@ export default function Moody(): ReactElement {
     },
     { enabled: !!ids }
   );
-  if (recentlyPlayedError || tracksFeaturesError || !tracksFeatures) {
+  if (recentlyPlayedError || tracksFeaturesError) {
     return <Text>Something went wrong</Text>;
+  }
+
+  if (
+    isTracksFeaturesLoading ||
+    isRecentlyPlayedLoading ||
+    !tracksFeatures ||
+    !recentPlayedTracks
+  ) {
+    return (
+      <CenterAll>
+        <Loader />
+      </CenterAll>
+    );
   }
 
   const moodScore = getMood(tracksFeatures);
 
   return (
     <Container>
-      <Text>Test</Text>
+      <VisualizeSongs tracks={recentPlayedTracks.items} />
     </Container>
   );
 }
