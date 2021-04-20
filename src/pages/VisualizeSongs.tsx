@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ItemsEntity } from "../types/types";
 import Text, { TextTypes } from "../components/Text";
+import { useStore } from "../store";
 
 const Container = styled.div`
   display: flex;

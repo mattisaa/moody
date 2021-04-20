@@ -9,6 +9,7 @@ import Text from "../components/Text";
 import { AudioFeaturesEntity, RecentlyPlayedEntity } from "../types/types";
 import { getMood, getTrackIdsFromRecentlyPlayedResponse } from "../utils/utils";
 import { VisualizeSongs } from "./VisualizeSongs";
+import { useStore } from "../store";
 
 const Container = styled.div`
   background-color: ${colors.primaryBackground};
@@ -33,6 +34,8 @@ const Image = styled.img`
 
 export default function Moody(): ReactElement {
   const location = useLocation();
+
+  const setMoodScore = useStore(state => state.setMoodScore);
 
   const params = queryString.parse(location.hash);
 
@@ -89,6 +92,7 @@ export default function Moody(): ReactElement {
   }
 
   const moodScore = getMood(tracksFeatures);
+  setMoodScore(moodScore);
 
   return (
     <Container>
