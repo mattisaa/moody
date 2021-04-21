@@ -4,18 +4,15 @@ import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../colors";
+import { CenterAll } from "../components/CommonUI";
+import FadeIn from "../components/FadeIn";
 import { Loader } from "../components/Loader";
-import Text, { TextTypes } from "../components/Text";
+import Text from "../components/Text";
 import { useStore } from "../store";
 import { AudioFeaturesEntity, RecentlyPlayedEntity } from "../types/types";
-import {
-  getHighsAndLows,
-  getMood,
-  getTrackIdsFromRecentlyPlayedResponse
-} from "../utils/utils";
-import { VisualizeSongs } from "./VisualizeSongs";
-import FadeIn from "../components/FadeIn";
+import { getMood, getTrackIdsFromRecentlyPlayedResponse } from "../utils/utils";
 import Results from "./Results";
+import { VisualizeSongs } from "./VisualizeSongs";
 
 const Container = styled.div`
   background-color: ${colors.primaryBackground};
@@ -24,14 +21,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const CenterAll = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
 `;
 
 const Image = styled.img`

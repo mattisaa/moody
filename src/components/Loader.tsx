@@ -3,29 +3,51 @@ import { colors } from "../colors";
 
 export const Loader = styled.div`
   width: 8px;
-  height: 48px;
-  display: inline-block;
-  position: relative;
+  height: 40px;
   border-radius: 4px;
-  color: ${colors.primarySpotifyBackground};
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 10px;
+  position: relative;
+  background: currentColor;
+  color: ${colors.black};
   box-sizing: border-box;
-  animation: animloader 0.6s linear infinite;
+  animation: animloader 0.3s 0.3s linear infinite alternate;
+  :after,
+  :before {
+    content: "";
+    box-sizing: border-box;
+    width: 8px;
+    height: 40px;
+    border-radius: 4px;
+    background: currentColor;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    animation: animloader1 0.3s 0.45s linear infinite alternate;
+  }
+  :before {
+    left: -20px;
+    animation-delay: 0s;
+  }
 
   @keyframes animloader {
     0% {
-      box-shadow: 20px -10px, 40px 10px, 60px 0px;
-    }
-    25% {
-      box-shadow: 20px 0px, 40px 0px, 60px 10px;
-    }
-    50% {
-      box-shadow: 20px 10px, 40px -10px, 60px 0px;
-    }
-    75% {
-      box-shadow: 20px 0px, 40px 0px, 60px -10px;
+      height: 40px;
+      transform: translateY(0);
     }
     100% {
-      box-shadow: 20px -10px, 40px 10px, 60px 0px;
+      height: 10px;
+      transform: translateY(30px);
+    }
+  }
+
+  @keyframes animloader1 {
+    0% {
+      height: 48px;
+    }
+    100% {
+      height: 4.8px;
     }
   }
 `;

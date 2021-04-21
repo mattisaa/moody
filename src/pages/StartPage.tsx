@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Spotify from "../assets/fonts/svg/spotify";
 import { colors } from "../colors";
 import { PrimaryButton } from "../components/Buttons";
+import { CenterAll } from "../components/CommonUI";
+import { Loader } from "../components/Loader";
 import Text, { TextTypes } from "../components/Text";
 import { urls } from "../resources/urls";
 
