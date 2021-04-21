@@ -1,4 +1,5 @@
 import {
+  AudioFeatures,
   AudioFeaturesEntity,
   ItemsEntity,
   RecentlyPlayedEntity
@@ -38,5 +39,29 @@ export function getMood(data: AudioFeaturesEntity) {
     (averageDanceability + averageEnergy) * danceAndEnergyMoodWeight +
     averageValence * valenceMoodWeight;
 
-  return moodScore;
+  return Math.round(moodScore * 100);
+}
+
+export function getHighsAndLows({
+  audioFeatures,
+  playedSongs
+}: {
+  audioFeatures: AudioFeatures[];
+  playedSongs: ItemsEntity[];
+}) {
+  const happiestSong = audioFeatures.reduce((prev, current) => {
+    return current.valence > prev.valence ? current : prev;
+  });
+  const saddestSong = audioFeatures.reduce((prev, current) => {
+    return current.valence < prev.valence ? current : prev;
+  });
+
+  const happiestSongFeatures = playedSongs.find(
+    item => item.track.id === happiestSong.id
+  );
+  const saddestSongFeatures = playedSongs.find(
+    item => item.track.id === saddestSong.id
+  );
+
+  return { happiestSongFeatures, saddestSongFeatures };
 }

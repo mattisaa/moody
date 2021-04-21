@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ItemsEntity } from "../types/types";
 import Text, { TextTypes } from "../components/Text";
 import { useStore } from "../store";
+import { colors } from "../colors";
 
 const Container = styled.div`
   display: flex;
@@ -11,6 +12,17 @@ const Container = styled.div`
 
 const Image = styled.img`
   object-fit: contain;
+`;
+
+const Bar = styled.div<{ progress: number }>`
+  background: linear-gradient(
+    to right,
+    ${colors.black} 0% ${props => props.progress}%,
+    ${colors.primarySpotifyBackground} ${props => props.progress}%
+  );
+  height: 9px;
+  border-radius: 14px;
+  margin-top: 10px;
 `;
 
 export function VisualizeSongs({
@@ -49,6 +61,7 @@ export function VisualizeSongs({
           >
             {currentIndex}/{tracks.length}
           </Text>
+          <Bar progress={currentIndex * 5} />
         </div>
       )}
     </Container>

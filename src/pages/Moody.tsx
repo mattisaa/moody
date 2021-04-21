@@ -6,10 +6,14 @@ import styled from "styled-components";
 import { colors } from "../colors";
 import { Loader } from "../components/Loader";
 import Text from "../components/Text";
-import { AudioFeaturesEntity, RecentlyPlayedEntity } from "../types/types";
-import { getMood, getTrackIdsFromRecentlyPlayedResponse } from "../utils/utils";
-import { VisualizeSongs } from "./VisualizeSongs";
 import { useStore } from "../store";
+import { AudioFeaturesEntity, RecentlyPlayedEntity } from "../types/types";
+import {
+  getHighsAndLows,
+  getMood,
+  getTrackIdsFromRecentlyPlayedResponse
+} from "../utils/utils";
+import { VisualizeSongs } from "./VisualizeSongs";
 
 const Container = styled.div`
   background-color: ${colors.primaryBackground};
