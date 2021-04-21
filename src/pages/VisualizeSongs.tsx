@@ -32,7 +32,13 @@ export function VisualizeSongs({
 }): ReactElement {
   const [currentSongUri, setCurrentSongUri] = useState<string>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isVisualizingFinished, setIsVisualizingFinished] = useState(false);
+
+  const isVisualizingFinished = useStore(
+    state => state.isVisualizationFinished
+  );
+  const setIsVisualizingFinished = useStore(
+    state => state.setIsVisualizationFinished
+  );
 
   useEffect(() => {
     tracks.forEach((item, index) =>

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../colors";
 import { Loader } from "../components/Loader";
-import Text from "../components/Text";
+import Text, { TextTypes } from "../components/Text";
 import { useStore } from "../store";
 import { AudioFeaturesEntity, RecentlyPlayedEntity } from "../types/types";
 import {
@@ -14,6 +14,8 @@ import {
   getTrackIdsFromRecentlyPlayedResponse
 } from "../utils/utils";
 import { VisualizeSongs } from "./VisualizeSongs";
+import FadeIn from "../components/FadeIn";
+import Results from "./Results";
 
 const Container = styled.div`
   background-color: ${colors.primaryBackground};
@@ -39,7 +41,9 @@ const Image = styled.img`
 export default function Moody(): ReactElement {
   const location = useLocation();
 
-  const setMoodScore = useStore(state => state.setMoodScore);
+  const isVisualizingFinished = useStore(
+    state => state.isVisualizationFinished
+  );
 
   const params = queryString.parse(location.hash);
 
@@ -96,11 +100,18 @@ export default function Moody(): ReactElement {
   }
 
   const moodScore = getMood(tracksFeatures);
-  setMoodScore(moodScore);
 
   return (
     <Container>
       <VisualizeSongs tracks={recentPlayedTracks.items} />
+      {isVisualizingFinished ? (
+        <FadeIn>
+          <Results
+            recentlyPlayed={recentPlayedTracks.items}
+            audioFeatures={tracksFeatures.audio_features}
+          />
+        </FadeIn>
+      ) : null}
     </Container>
   );
 }

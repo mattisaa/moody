@@ -44,10 +44,10 @@ export function getMood(data: AudioFeaturesEntity) {
 
 export function getHighsAndLows({
   audioFeatures,
-  playedSongs
+  recentlyPlayed
 }: {
   audioFeatures: AudioFeatures[];
-  playedSongs: ItemsEntity[];
+  recentlyPlayed: ItemsEntity[];
 }) {
   const happiestSong = audioFeatures.reduce((prev, current) => {
     return current.valence > prev.valence ? current : prev;
@@ -56,10 +56,10 @@ export function getHighsAndLows({
     return current.valence < prev.valence ? current : prev;
   });
 
-  const happiestSongFeatures = playedSongs.find(
+  const happiestSongFeatures = recentlyPlayed.find(
     item => item.track.id === happiestSong.id
   );
-  const saddestSongFeatures = playedSongs.find(
+  const saddestSongFeatures = recentlyPlayed.find(
     item => item.track.id === saddestSong.id
   );
 
