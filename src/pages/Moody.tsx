@@ -23,16 +23,13 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Image = styled.img`
-  object-fit: contain;
-`;
-
 export default function Moody(): ReactElement {
   const location = useLocation();
 
   const isVisualizingFinished = useStore(
     state => state.isVisualizationFinished
   );
+  const setMoodScore = useStore(state => state.setMoodScore);
 
   const params = queryString.parse(location.hash);
 
@@ -71,8 +68,20 @@ export default function Moody(): ReactElement {
     },
     { enabled: !!ids }
   );
+
+  React.useEffect(() => {
+    if (tracksFeatures) {
+      const moodScore = getMood(tracksFeatures);
+      setMoodScore(moodScore);
+    }
+  }, [tracksFeatures]);
+
   if (recentlyPlayedError || tracksFeaturesError) {
-    return <Text>Something went wrong</Text>;
+    return (
+      <CenterAll>
+        <Text>Something went wrong</Text>
+      </CenterAll>
+    );
   }
 
   if (
@@ -87,8 +96,6 @@ export default function Moody(): ReactElement {
       </CenterAll>
     );
   }
-
-  const moodScore = getMood(tracksFeatures);
 
   return (
     <Container>

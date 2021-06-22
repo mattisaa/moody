@@ -7,3 +7,8 @@ export const CenterAll = styled.div`
   height: 100%;
   width: 100%;
 `;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

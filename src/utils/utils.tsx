@@ -65,3 +65,27 @@ export function getHighsAndLows({
 
   return { happiestSongFeatures, saddestSongFeatures };
 }
+
+const emojies = {
+  extremelySad: { emoji: "😭", value: [0, 10] },
+  verySad: { emoji: "😓", value: [11, 20] },
+  sad: { emoji: "😕", value: [21, 30] },
+  mellow: { emoji: "😐", value: [31, 40] },
+  average: { emoji: "🤨", value: [41, 50] },
+  peaceful: { emoji: "😌", value: [51, 60] },
+  awesome: { emoji: "😎", value: [61, 70] },
+  happy: { emoji: "😁", value: [71, 80] },
+  veryHappy: { emoji: " 🥳", value: [81, 90] },
+  topOfTheWorld: { emoji: "🤩", value: [91, 100] }
+};
+
+export function getMoodEmoji(score: number) {
+  let moodEmoji;
+  Object.entries(emojies).forEach(([_, { value, emoji }]) => {
+    if (score >= value[0] && score <= value[1]) {
+      moodEmoji = emoji;
+    }
+  });
+
+  return moodEmoji || "";
+}

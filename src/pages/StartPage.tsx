@@ -17,6 +17,13 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const OuterContainer = styled.div`
+  padding: 20px;
+  border: 2px ${colors.black};
+  border-style: solid;
+  margin-bottom: 40px;
+`;
+
 const scope = "user-read-private user-read-recently-played";
 const encodedScopes = encodeURIComponent(scope);
 
@@ -31,12 +38,9 @@ export default function StartPage(): ReactElement {
 
   return (
     <Container>
-      <Text
-        text="moody"
-        type={TextTypes.xlarge}
-        bold
-        style={{ marginBottom: 40 }}
-      />
+      <OuterContainer>
+        <Text text="moody" type={TextTypes.xxxlarge} bold />
+      </OuterContainer>
       <Text
         text="find out your moody mood based on your recent played songs on spotify"
         type={TextTypes.normal}

@@ -61,7 +61,7 @@ export function VisualizeSongs({
         <div>
           <Image src={currentSongUri} />
           <Text
-            type={TextTypes.xlarge}
+            type={TextTypes.xxxlarge}
             bold
             style={{ textAlign: "center", marginTop: 20 }}
           >

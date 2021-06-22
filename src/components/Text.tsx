@@ -6,7 +6,8 @@ export enum TextTypes {
   small,
   normal,
   large,
-  xlarge
+  xlarge,
+  xxxlarge
 }
 
 export const sharedTextStyle = css`
@@ -25,16 +26,17 @@ const textTypes = {
   `,
   [TextTypes.large]: styled.p`
     ${sharedTextStyle};
-    font-size: 12px;
+    font-size: 16px;
   `,
   [TextTypes.xlarge]: styled.p`
+    ${sharedTextStyle};
+    font-size: 20px;
+  `,
+  [TextTypes.xxxlarge]: styled.p`
     ${sharedTextStyle};
     font-size: 50px;
   `
 };
-const TextContainer = styled.p`
-  ${sharedTextStyle}
-`;
 
 interface Props {
   text?: string;
