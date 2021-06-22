@@ -67,7 +67,7 @@ export function getHighsAndLows({
 }
 
 const emojies = {
-  extremelySad: { emoji: "😭", value: [0, 10] },
+  extremelySad: { emoji: "😭", value: [0, 10], text: "You seem very sad. Try listening to " },
   verySad: { emoji: "😓", value: [11, 20] },
   sad: { emoji: "😕", value: [21, 30] },
   mellow: { emoji: "😐", value: [31, 40] },

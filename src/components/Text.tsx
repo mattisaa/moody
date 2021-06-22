@@ -43,6 +43,7 @@ interface Props {
   bold?: boolean;
   type?: TextTypes;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 export default function Text({
@@ -50,11 +51,15 @@ export default function Text({
   bold,
   type,
   style,
-  children
+  children,
+  className
 }: PropsWithChildren<Props>) {
   const TextStyle = textTypes[type || TextTypes.normal];
   return (
-    <TextStyle style={{ fontWeight: bold ? 700 : undefined, ...style }}>
+    <TextStyle
+      style={{ fontWeight: bold ? 700 : undefined, ...style }}
+      className={className}
+    >
       {text}
       {children}
     </TextStyle>
