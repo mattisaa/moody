@@ -20,23 +20,36 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const ImageContainer = styled.div`
+const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 20px;
+`;
+
+const SongConatiner = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 20px 20px 20px 0px;
 `;
 
 interface SongProps {
   src?: string;
   title?: string;
+  artist?: string;
+  label: string;
 }
 
-const SongInformation = ({ src, title }: SongProps) => {
+const SongInformation = ({ src, title, artist, label }: SongProps) => {
   return (
-    <ImageContainer>
-      <Image src={src} />
-      <Text bold>{title}</Text>
-    </ImageContainer>
+    <Container>
+      <Text bold text={label} />
+      <SongConatiner>
+        <Image src={src} />
+        <Container style={{ marginLeft: 20 }}>
+          <Text bold>{title}</Text>
+          <Text>{`by ${artist}`}</Text>
+        </Container>
+      </SongConatiner>
+    </Container>
   );
 };
 
@@ -47,14 +60,18 @@ function TopAndBottomSongs({ recentlyPlayed, audioFeatures }: Props) {
   });
 
   return (
-    <Container>
+    <Container style={{ marginTop: 20 }}>
       <SongInformation
         src={happiestSongFeatures?.track.album.images[1].url}
         title={happiestSongFeatures?.track.name}
+        artist={happiestSongFeatures?.track.artists[0].name}
+        label="Happiest song"
       />
       <SongInformation
         src={saddestSongFeatures?.track.album.images[1].url}
         title={saddestSongFeatures?.track.name}
+        artist={saddestSongFeatures?.track.artists[0].name}
+        label="Saddest song"
       />
     </Container>
   );

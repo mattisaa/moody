@@ -41,14 +41,10 @@ const ColoredText = styled(Text)`
   text-align: center;
 `;
 
-interface Props {
-  energyScore: number;
-  dancibilityScore: number;
-}
-function ResultBox({ energyScore, dancibilityScore }: Props) {
+function ResultBox() {
   const moodScore = useStore(state => state.moodScore);
 
-  const emoji = getMoodEmoji(moodScore);
+  const emoji = getMoodEmoji(moodScore.mood);
   return (
     <ScoreContainer>
       <RowContainer>
@@ -57,15 +53,15 @@ function ResultBox({ energyScore, dancibilityScore }: Props) {
             Dancibility
           </ColoredText>
           <ColoredText type={TextTypes.xlarge} bold>
-            {dancibilityScore} %
+            {moodScore.danceability} %
           </ColoredText>
         </Container>
         <Container>
           <ColoredText type={TextTypes.xlarge} bold>
-            energy
+            Energy
           </ColoredText>
           <ColoredText type={TextTypes.xlarge} bold>
-            {energyScore} %
+            {moodScore.energy} %
           </ColoredText>
         </Container>
       </RowContainer>
@@ -74,7 +70,7 @@ function ResultBox({ energyScore, dancibilityScore }: Props) {
           Mood
         </Text>
         <Text type={TextTypes.xxxlarge} style={{ textAlign: "center" }} bold>
-          {moodScore} % {emoji}
+          {moodScore.mood} % {emoji}
         </Text>
       </BottomContainer>
     </ScoreContainer>

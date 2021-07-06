@@ -17,7 +17,11 @@ export function getTrackIdsFromRecentlyPlayedResponse(
 
 const valenceMoodWeight = 0.7;
 const danceAndEnergyMoodWeight = 0.3;
-export function getMood(data: AudioFeaturesEntity) {
+export function getMood(data: AudioFeaturesEntity): {
+  mood: number;
+  danceability: number;
+  energy: number;
+} {
   const audioFeatures = data.audio_features;
   const numbTracks = audioFeatures.length;
 
@@ -39,7 +43,11 @@ export function getMood(data: AudioFeaturesEntity) {
     (averageDanceability + averageEnergy) * danceAndEnergyMoodWeight +
     averageValence * valenceMoodWeight;
 
-  return Math.round(moodScore * 100);
+  return {
+    mood: Math.round(moodScore * 100),
+    danceability: Math.round(averageDanceability * 100),
+    energy: Math.round(averageEnergy * 100)
+  };
 }
 
 export function getHighsAndLows({
@@ -67,7 +75,11 @@ export function getHighsAndLows({
 }
 
 const emojies = {
-  extremelySad: { emoji: "😭", value: [0, 10], text: "You seem very sad. Try listening to " },
+  extremelySad: {
+    emoji: "😭",
+    value: [0, 10],
+    text: "You seem very sad. Try listening to "
+  },
   verySad: { emoji: "😓", value: [11, 20] },
   sad: { emoji: "😕", value: [21, 30] },
   mellow: { emoji: "😐", value: [31, 40] },

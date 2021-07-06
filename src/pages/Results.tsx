@@ -17,7 +17,12 @@ interface Props {
 function Results({ recentlyPlayed, audioFeatures }: Props): ReactElement {
   return (
     <Column>
-      <ResultBox energyScore={60} dancibilityScore={80} />
+      <Text
+        text="Results"
+        type={TextTypes.xxxlarge}
+        style={{ textAlign: "center", marginBottom: 20 }}
+      />
+      <ResultBox />
       <TopAndBottomSongs
         recentlyPlayed={recentlyPlayed}
         audioFeatures={audioFeatures}
