@@ -29,10 +29,10 @@ const encodedScopes = encodeURIComponent(scope);
 
 export default function StartPage(): ReactElement {
   function handlePress() {
-    window.location.href = `${urls.spotifyAuth}?client_id=${
-      process.env.REACT_APP_CLIENT_ID
-    }&scope=${encodedScopes}&redirect_uri=${encodeURIComponent(
-      "http://localhost:3000/moody"
+    window.location.href = `${
+      urls.spotifyAuth
+    }?client_id=b816fadfa3ab43b99c45a34d8db4f615&scope=${encodedScopes}&redirect_uri=${encodeURIComponent(
+      "http://moody-five.vercel.app/moody"
     )}&response_type=token&show_dialog=true`;
   }
 
